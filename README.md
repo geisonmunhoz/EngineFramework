@@ -21,31 +21,31 @@ The medias are the basic for meta-templates definition.
 
 To create a media, go to the media's directory, create a new file and set up the JSON file with the required information.
 
-{
-	title: 'Title of the media', // Required
-	uri: '{Y}/{m}/{d}/{title}.html', // Values between {} are meta-template fields or date characteres, required
-	rank: number, // The media's position in the admin's homepage, optional
-	
-	database: {
-		columns: {
-			columnName: {
-				type: 'MySQL field types', // Required
-				value: 'Meta-template fields', // Required
-				length: number, // Optional
-				default: 'Default value', // Optional
+	{
+		title: 'Title of the media', // Required
+		uri: '{Y}/{m}/{d}/{title}.html', // Values between {} are meta-template fields or date characteres, required
+		rank: number, // The media's position in the admin's homepage, optional
+		
+		database: {
+			columns: {
+				columnName: {
+					type: 'MySQL field types', // Required
+					value: 'Meta-template fields', // Required
+					length: number, // Optional
+					default: 'Default value', // Optional
+				},
+				
+				...
 			},
 			
-			...
-		},
-		
-		// Optional
-		index: {
-			indexName: ['column names above', ...],
-			
-			...
+			// Optional
+			index: {
+				indexName: ['column names above', ...],
+				
+				...
+			}
 		}
 	}
-}
 
 After create your media an update is necessary in the admin's settings page:
 
@@ -63,53 +63,53 @@ The meta-templates defines the admin forms and how the data will be accessible i
 
 To create a meta-template, go to the directory of the meta-templates and create a new file. After that, your meta-template will be available and listed on the homepage of the admin, inside the meta-template's media.
 
-{
-	portal: 'Your site', // Required 
-	station: 'Category', // Required
-	channel: 'Sub category', // Required
-	title: 'Title of the meta-template', // Required
-	media: 'Name of the media file without .js', // Required
-	keywords: 'tags, ...', // in development // Required
-	
-	export: {
-		main: {
-			url: 'base/url/', // Required
-			template: 'file.html' // Required
-		}
-	},
-	
-	modules: {
-		post <Title for this group>: {
-			content <Title for this group>: {
-				fieldName: {
-					type: 'text|radio|checkbox|select|textarea|html|file|email|url|number|tags', // Required
-					title: 'Title of the field', // Optional
-					description: 'Description of the field', // Optional
-					default: 'Default value', // Optional
-					options: ['A', 'B', ...], // For checkbox and radio
-					unsigned: true|false, // For numbers
-					required: true|false, // Optional
-					regex: '', // Validation, optional
-					multiple: true|false, // Optional
-					charcount: true, // Optional
-					minlength: number, // Optional
-					maxlength: number, // Optional
-					
-					// for images (in development)
-					minwidth: number, // Optional
-					maxwidth: number, // Optional
-					minheight: number, // Optional
-					maxheight: number, // Optional
-					ratio: number, // Optional
-				}
+	{
+		portal: 'Your site', // Required 
+		station: 'Category', // Required
+		channel: 'Sub category', // Required
+		title: 'Title of the meta-template', // Required
+		media: 'Name of the media file without .js', // Required
+		keywords: 'tags, ...', // in development // Required
+		
+		export: {
+			main: {
+				url: 'base/url/', // Required
+				template: 'file.html' // Required
+			}
+		},
+		
+		modules: {
+			post <Title for this group>: {
+				content <Title for this group>: {
+					fieldName: {
+						type: 'text|radio|checkbox|select|textarea|html|file|email|url|number|tags', // Required
+						title: 'Title of the field', // Optional
+						description: 'Description of the field', // Optional
+						default: 'Default value', // Optional
+						options: ['A', 'B', ...], // For checkbox and radio
+						unsigned: true|false, // For numbers
+						required: true|false, // Optional
+						regex: '', // Validation, optional
+						multiple: true|false, // Optional
+						charcount: true, // Optional
+						minlength: number, // Optional
+						maxlength: number, // Optional
+						
+						// for images (in development)
+						minwidth: number, // Optional
+						maxwidth: number, // Optional
+						minheight: number, // Optional
+						maxheight: number, // Optional
+						ratio: number, // Optional
+					}
+				},
+				
+				...
 			},
 			
 			...
-		},
-		
-		...
+		}
 	}
-}
 
 Content URL
 --------------
@@ -125,49 +125,49 @@ Each template file set in meta-template must exists in this directory.
 
 **Accessing data**
 
-<?= $groupName->groupName->fieldName ?>
+	<?= $groupName->groupName->fieldName ?>
 
 Example:
 
-<?= $post->content->title ?>
+	<?= $post->content->title ?>
 
 For multiples and checkboxes the values are in arrays.
 
 **Doing queries**
 
-<?php
+	<?php
 
-search(array(
-	'media'		=> '',
-	'portal'	=> '',
-	'station'	=> '',
-	'channel'	=> '',
-	'station'	=> '',
-	'q'			=> '', // query string
-	'p'			=> '', // page number
-));
+	search(array(
+		'media'		=> '',
+		'portal'	=> '',
+		'station'	=> '',
+		'channel'	=> '',
+		'station'	=> '',
+		'q'			=> '', // query string
+		'p'			=> '', // page number
+	));
 
-// or
+	// or
 
-search('media=&portal=...');
+	search('media=&portal=...');
 
-?>
+	?>
 
 **Fetching data**
 
-<?php
+	<?php
 
-while (have_results()) {
-	echo $result->title;
-}
+	while (have_results()) {
+		echo $result->title;
+	}
 
-?>
+	?>
 
 The values available are the column names defined in the media.
 
 **Pagination**
 
-<?= pagination() ?>
+	<?= pagination() ?>
 
 Creating other files, like index.html
 
@@ -183,14 +183,14 @@ You can use the arrays $js and $css to put your files. The advantage of this usa
 
 Example:
 
-<?php
+	<?php
 
-// my template file
+	// my template file
 
-$css[] = 'style.css';
-$js[]  = 'script.js';
+	$css[] = 'style.css';
+	$js[]  = 'script.js';
 
-?>
+	?>
 
 Users and groups
 --------------
